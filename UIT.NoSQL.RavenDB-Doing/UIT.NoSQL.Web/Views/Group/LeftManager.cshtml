@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+}
+
+
+@if (Session["user"] != null) 
+{
+    <ul>
+        <li>
+            <a href="#">
+                My Group
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                Home
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                Share
+            </a>
+        </li>
+
+        <hr />
+
+        
+        <li>
+            @Html.ActionLink("Member", "Member", new { id = TempData["IsMember"] })
+        </li>
+        <li>
+            @Html.ActionLink("Join Request", "JoinRequest", new { id = TempData["IsMember"] })
+        </li>
+        
+        <li>
+            @Html.ActionLink("Setting", "Setting", new { id = TempData["IsMember"] })
+        </li>
+        
+        
+        <hr />
+
+        <li>
+            <a href="#">
+                Favorites
+            </a>
+        </li>
+
+    </ul>
+}

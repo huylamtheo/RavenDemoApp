@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript" src="Scripts/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="Scripts/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="Scripts/knockout-2.0.0.js"></script>
+    <script type="text/javascript" src="../../Plugin/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        var editor, html = '';
+
+        function createEditor() {
+            if (editor)
+                return;
+
+            // Create a new editor inside the <div id="editor">, setting its value to html
+            var config = { toolbar: 'Basic' };
+            editor = CKEDITOR.appendTo('editor', config, html);
+            document.getElementById('fullEditor').style.display = '';
+        }
+
+        function removeEditor() {
+            if (!editor)
+                return;
+
+            // Retrieve the editor contents. In an Ajax application, this data would be
+            // sent to the server or used in any other way.
+            //document.getElementById('editorcontents').innerHTML = html = editor.getData();
+            //document.getElementById('contents').style.display = '';
+
+            // Destroy the editor.
+            editor.destroy();
+            editor = null;
+            document.getElementById('fullEditor').style.display = 'none';
+        }
+        function User(data) {
+            this.Id = ko.observable(data.Id);
+            this.FullName = ko.observable(data.FullName);
+        }
+        function Commnent(data) {
+            this.Id = ko.observable(data.Id);
+            this.Content = ko.observable(data.Content);
+            this.ParentContent = ko.observable(data.ParentContent);
+            this.CreateBy = ko.observable(data.CreateBy);
+            this.CreateDate = ko.observable(data.CreateDate);
+            this.isDelete = ko.observable(data.isDelete);
+        }
+        function Topic(data) {
+            this.Id = ko.observable(data.Id);
+            this.TopicName = ko.observable(data.TopicName);
+            this.Content = ko.observable(data.Content);
+            this.CreateBy = ko.observable(data.CreateBy);
+            this.CreateDate = ko.observable(data.CreateDate);
+            this.ListComment = ko.observable(data.ListComment);
+        }
+
+        function addComment() {
+            var url = "http://localhost:1290/api/Topic";
+            $.getJSON(url, function (data) {
+                alert(data[0].TopicName);
+            });
+        }
+
+        function getTopic() {
+            var url = "Home/GetAll";
+            $.getJSON(url, "3e1c618c-2438-4888-8f3e-9da438926853" , function (data) {
+                alert(data[0].TopicName);
+            });
+        }
+
+//        $(document).ready(function () {
+//            
+//            function TopicViewModel() {
+//                //data
+//                var self = this;
+//                self.Topic = ko.observable();
+
+////                $.getJSON("Topic/GetById", { id: '3e1c618c-2438-4888-8f3e-9da438926853' }, function (data) {
+////                    var topic = new Topic(data);
+////                    self.Topic(topic);
+////                });
+
+//            }
+//            ko.applyBindings(new TopicViewModel());
+//        });
+
+        function test() {
+            $.getJSON("Topic/GetById", { id: '7af8de22-5c2b-4a88-a0db-db8ddad337b4' }, function (data) {
+                var topic = new Topic(data);
+                alert(topic.TopicName());
+
+            });
+        }
+    </script>
+</head>
+<body>
+    <!--<a href="#" onclick="getTopic()">Get Topic</a><br/>-->
+    <a href="#" onclick="createEditor()">Post Reply</a>
+    <!--<p>Id: <strong data-bind="text: Id"></strong></p>
+    <p>Name: <strong data-bind="text: TopicName"></strong></p>-->
+
+    <br /><br />
+    <p>Id Test: <strong id="id"></strong></p>
+    <p>Name Test: <strong id="name"></strong></p>
+    <button onclick="test()">Test</button>
+    <table>
+        <tbody> 
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- This div will hold the editor. -->
+    <div id = "fullEditor" style="display: none">
+        <a href="#" onclick="addComment()">POST</a>
+        <a href="#" onclick="removeEditor()">DISCARD</a>
+        <div id="editor">
+	    </div>
+    </div>
+	    
+    <div id = "addTopic">
+    </div>
+</body>
+</html>

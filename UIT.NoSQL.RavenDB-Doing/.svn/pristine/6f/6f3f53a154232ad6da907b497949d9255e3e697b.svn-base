@@ -1,0 +1,59 @@
+﻿@model IEnumerable < UIT.NoSQL.Core.Domain.DenormalizedTopic < UIT.NoSQL.Core.Domain.TopicObject> >
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    <section id="leftmenu">
+        @Html.Action("LeftMenu", "Home")
+    </section>
+}
+
+@section menu {
+    <section id="topmenu">
+        @Html.Action("TopMenuUser", "Group")
+    </section>
+}
+
+<h2>Detail</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+
+    <tr>
+        <th>
+            TopicName
+        </th>
+        <th>
+            LastModified
+        </th>
+        <th>
+            NumberOfView
+        </th>
+        <th>
+            NumberOfComment
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.TopicName as string, "Detail", "Topic", new { id = item.Id }, null)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastModified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfView)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfComment)
+        </td>
+    </tr>
+}
+
+</table>

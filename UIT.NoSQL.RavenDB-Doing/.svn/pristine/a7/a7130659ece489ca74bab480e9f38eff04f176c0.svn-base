@@ -1,0 +1,54 @@
+﻿@model IEnumerable<UIT.NoSQL.Core.Domain.UserGroupObject>
+
+@{
+    Layout = null;
+}
+
+
+@if (Session["user"] != null) 
+{
+    <ul>
+        <li>
+            <a href="#">
+                My Group
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                Home
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                Share
+            </a>
+        </li>
+
+        <hr />
+
+
+        @foreach (var item in Model) 
+        {
+        
+                <li>
+                    <a href="/Group/Detail/@Html.DisplayFor(modelItem => item.GroupId)">
+                    @Html.DisplayFor(modelItem => item.GroupName)
+                </a>
+                </li>
+        
+        }
+        <hr />
+
+        <li>
+            <a href="#">
+                Favorites
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                Setting
+            </a>
+        </li>
+
+    </ul>
+}

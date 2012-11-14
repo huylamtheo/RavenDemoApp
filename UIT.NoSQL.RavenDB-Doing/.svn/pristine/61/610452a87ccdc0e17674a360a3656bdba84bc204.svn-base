@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+
+
+@if (Session["user"] != null) 
+{
+    <ul>
+        <li>
+            <a href="#">
+                My Group
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                Home
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                Share
+            </a>
+        </li>
+
+        <hr />
+
+        
+        <li>
+            @Html.ActionLink("JoinRequest", "JoinRequest", new { id = ViewBag.GroupID })
+        </li>
+        
+        
+        <hr />
+
+        <li>
+            <a href="#">
+                Favorites
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                Setting
+            </a>
+        </li>
+
+    </ul>
+}
